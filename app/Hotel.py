@@ -1,5 +1,5 @@
 import numpy as np
-from Guest import Guest
+from .Guest import Guest
 
 class Hotel():
     occupiedRooms = 0

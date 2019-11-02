@@ -1,9 +1,9 @@
-from Hotel import Hotel
-from Guest import Guest
+from app.Hotel import Hotel
+from app.Guest import Guest
 import numpy as np
 from flask import Flask, render_template, request
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='./app/templates')
 
 rooms = 5
 roomArray = dict.fromkeys(np.arange(1, rooms+1, 1))
