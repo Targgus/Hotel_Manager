@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="../static/style.css">
+    <title>Hotel Manager</title>
+
+</head>
+
+<body style="background-color: rgb(93, 94, 95);">
+    <div class='container'>
+        <div>
+            <form action="/submit" method="POST">
+                <div class="form-group">
+                    <h3 style="text-align: center;">Check In</h3>
+                    <input id="icon_prefix" type="text" name="guestFirstName" placeholder="First">
+                    <input type="text" name="guestLastName" placeholder="Last">
+                    <input type="text" name="roomNumber" placeholder="Room">
+                </div>
+                <div style="text-align: center;">
+                    <button type="submit" class="btn-large waves-effect waves-dark">Check In</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        {% for guest in guests %}
+            <li>{{ guest.firstName }}</li>
+            <li>{{ guest.lastName}} </li>
+            <li>{{ guest.roomNumber }}</li>
+        {% endfor %}
+    </div>
+
+   
+</body>
+</html>
