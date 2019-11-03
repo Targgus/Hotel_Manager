@@ -5,8 +5,7 @@ import os
 
 @app.route('/')
 def index():
-    
-    return render_template('index.html')
+    return render_template('index.html', guests=Guest.query.all())
 
 @app.route("/submit", methods=['POST'])
 def submit():
@@ -16,12 +15,24 @@ def submit():
         roomNumber = request.form['roomNumber']
 
         if firstName and roomNumber:
-            existing_user = Guest.query.filter(Guest.firstName == firstName or Guest.roomNumber == roomNumber).first()
+            existing_user = Guest.query.filter(Guest.firstName == firstName).first()
+        if roomNumber:
+            existing_room = Guest.query.filter(Guest.roomNumber == roomNumber).first()
         if existing_user:
-            return make_response(f'{firstName} ({roomNumber}) alreday checked in!')
+            return render_template('index.html', guests=Guest.query.all(), message='They are already checked in')
+        if existing_room:
+            return render_template('index.html', guests=Guest.query.all(), message='That room is currently booked')
 
         data = Guest(firstName=firstName, lastName=lastName, roomNumber=roomNumber)
 
         db.session.add(data)
         db.session.commit()
+    return render_template('index.html', guests=Guest.query.all())
+
+@app.route("/delete/<int:guestid>", methods=['GET', 'POST'])
+def delete(guestid):
+    # guestid = request.args.get(guestid)
+    print(guestid)
+    Guest.query.filter_by(id=guestid).delete()
+    db.session.commit()
     return render_template('index.html', guests=Guest.query.all())

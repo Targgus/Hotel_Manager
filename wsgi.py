@@ -1,3 +1,4 @@
+# web server gateway interface
 from application import create_app
 
 app = create_app()
