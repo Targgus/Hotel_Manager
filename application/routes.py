@@ -7,7 +7,7 @@ import os
 def index():
     return render_template('index.html', guests=Guest.query.all())
 
-@app.route("/submit", methods=['POST'])
+@app.route("/submit", methods=['GET', 'POST'])
 def submit():
     if request.method == "POST":
         firstName = request.form['guestFirstName']
@@ -31,8 +31,6 @@ def submit():
 
 @app.route("/delete/<int:guestid>", methods=['GET', 'POST'])
 def delete(guestid):
-    # guestid = request.args.get(guestid)
-    print(guestid)
     Guest.query.filter_by(id=guestid).delete()
     db.session.commit()
     return render_template('index.html', guests=Guest.query.all())
